@@ -4,10 +4,10 @@ Open the local MM3 visual car/stat editor. No packages need to be installed.
 #>
 param(
     [string]$Config = (Join-Path $PSScriptRoot 'cars.json'),
-    [string]$GameDir = (Join-Path $PSScriptRoot '..\..\game_files')
+    [string]$GameDir = (Join-Path $PSScriptRoot '..\..\..\game_files')
 )
 $ErrorActionPreference = 'Stop'
-$repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
+$repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
 $python = Join-Path $repo 'tools\venv\Scripts\pythonw.exe'
 if (-not (Test-Path -LiteralPath $python)) {
     $python = Join-Path $repo 'tools\venv\Scripts\python.exe'

@@ -9,7 +9,7 @@ loads or when an expected car/ID/rating is missing. A live player's telemetry is
 included with parsed tuning values when a race has started. No save, game file,
 or game memory is changed.
 .EXAMPLE
-./tools/car-mods/verify.ps1 -ProcessId 1234 -Log ./out/car-check/stderr.log -ExpectedManifest ./tools/car-mods/cars.json
+./tools/car-tools/car-mods/verify.ps1 -ProcessId 1234 -Log ./out/car-check/stderr.log -ExpectedManifest ./tools/car-tools/car-mods/cars.json
 #>
 [CmdletBinding()]
 param(

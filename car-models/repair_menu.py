@@ -16,8 +16,9 @@ import mm3_model
 import mm3_textures
 import preview
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "tools/car-mods"))
+# The mm3-recomp checkout this repository is a submodule of (tools/car-tools).
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "car-mods"))
 from prepare import IDENTITIES, atomic_write, load_model_package, package_source
 
 

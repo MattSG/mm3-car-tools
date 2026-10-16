@@ -49,13 +49,13 @@ remain available. Reapplying the pack does not reset saved progress.
 Double-click [editor.cmd](editor.cmd), or run it from the repository root:
 
 ```powershell
-tools\car-mods\editor.cmd
+tools\car-tools\car-mods\editor.cmd
 ```
 
 To open a specific car and tab directly, for example Panoz's model package:
 
 ```powershell
-tools\car-mods\editor.cmd --car-id 9004 --tab model
+tools\car-tools\car-mods\editor.cmd --car-id 9004 --tab model
 ```
 
 Tabs are `specs`, `driving`, `gears`, `advanced` and `model`. The added car IDs are
@@ -146,8 +146,8 @@ not require a web server or additional packages. The code is in
 From the repository root, with the game closed:
 
 ```powershell
-tools\venv\Scripts\python.exe tools\car-mods\prepare.py
-tools\venv\Scripts\python.exe tools\car-mods\prepare.py --apply
+tools\venv\Scripts\python.exe tools\car-tools\car-mods\prepare.py
+tools\venv\Scripts\python.exe tools\car-tools\car-mods\prepare.py --apply
 scripts\play.ps1 -Keyboard
 ```
 
@@ -261,7 +261,7 @@ Ctrl+C restores the previous files and installation metadata. Restore the
 pre-install data with:
 
 ```powershell
-tools\venv\Scripts\python.exe tools\car-mods\prepare.py --restore
+tools\venv\Scripts\python.exe tools\car-tools\car-mods\prepare.py --restore
 ```
 
 `--config <path>` selects a different settings file and `--game-dir <path>`
@@ -273,8 +273,8 @@ model packages and pristine archive backups remain available.
 To inspect a running native instance without changing game memory:
 
 ```powershell
-tools\bin\powershell\pwsh.exe -NoProfile -File tools\car-mods\verify.ps1 `
-    -ProcessId <pid> -Log <stderr.log> -ExpectedManifest tools\car-mods\cars.json
+tools\bin\powershell\pwsh.exe -NoProfile -File tools\car-tools\car-mods\verify.ps1 `
+    -ProcessId <pid> -Log <stderr.log> -ExpectedManifest tools\car-tools\car-mods\cars.json
 ```
 
 The verifier reports the actual loaded catalog IDs, names and ratings, and

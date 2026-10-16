@@ -23,7 +23,8 @@ import sys
 import tempfile
 import zipfile
 
-ROOT = Path(__file__).resolve().parents[2]
+# The mm3-recomp checkout this repository is a submodule of (tools/car-tools).
+ROOT = Path(__file__).resolve().parents[3]
 _factory_spec = importlib.util.spec_from_file_location(
     "mm3_factory_specs", Path(__file__).with_name("factory_specs.py"))
 factory_specs = importlib.util.module_from_spec(_factory_spec)

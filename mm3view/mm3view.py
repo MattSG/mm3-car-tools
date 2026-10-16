@@ -1,6 +1,6 @@
 """mm3view - poke at Midtown Madness 3 game data.
 
-    uv run --with numpy --with pillow tools/mm3view/mm3view.py <command> ...
+    uv run --with numpy --with pillow tools/car-tools/mm3view/mm3view.py <command> ...
 
     ls    [glob]           list assets (loose files, Data_hd.zip, Data_dvd.zip)
     get   <path> [-o dir]  extract one asset as-is
@@ -34,7 +34,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 
-REPO = Path(__file__).resolve().parents[2]
+# The mm3-recomp checkout this repository is a submodule of (tools/car-tools).
+REPO = Path(__file__).resolve().parents[3]
 CACHE = REPO / "tools" / "cache" / "decdds"
 GF_URL = ("https://raw.githubusercontent.com/dstien/gameformats/"
           "48b78d1676e4c39eaa2584544533efdf3a4a18ba/mm3/decdds/")

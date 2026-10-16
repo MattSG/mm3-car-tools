@@ -18,9 +18,11 @@ import mm3_model
 import mm3_lights
 import mm3_textures
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / 'tools/mm3view'))
-sys.path.insert(0, str(ROOT / 'tools/car-mods'))
+# The mm3-recomp checkout this repository is a submodule of (tools/car-tools).
+ROOT = Path(__file__).resolve().parents[3]
+TOOLS = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(TOOLS / 'mm3view'))
+sys.path.insert(0, str(TOOLS / 'car-mods'))
 from mm3view import Data
 from prepare import IDENTITIES, alias_paths
 

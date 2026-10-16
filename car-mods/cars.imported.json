@@ -40,7 +40,7 @@
         "max_kmh": 360,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/Panoz"
+      "model_package": "../../../out/car-models/packages/Panoz"
     },
     {
       "id": 9005,
@@ -67,7 +67,7 @@
         "max_kmh": 360,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/McLaren_F1"
+      "model_package": "../../../out/car-models/packages/McLaren_F1"
     },
     {
       "id": 9006,
@@ -94,7 +94,7 @@
         "max_kmh": 380,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/Form1"
+      "model_package": "../../../out/car-models/packages/Form1"
     },
     {
       "id": 9009,
@@ -121,7 +121,7 @@
         "max_kmh": 380,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/Ford_GTcar"
+      "model_package": "../../../out/car-models/packages/Ford_GTcar"
     },
     {
       "id": 9010,
@@ -148,7 +148,7 @@
         "max_kmh": 360,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/Senna_Road"
+      "model_package": "../../../out/car-models/packages/Senna_Road"
     },
     {
       "id": 9011,
@@ -175,7 +175,7 @@
         "max_kmh": 360,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/Senna_GTR1"
+      "model_package": "../../../out/car-models/packages/Senna_GTR1"
     },
     {
       "id": 9012,
@@ -202,7 +202,7 @@
         "max_kmh": 400,
         "max_mph": 260
       },
-      "model_package": "../../out/car-models/packages/FXXK_Racer"
+      "model_package": "../../../out/car-models/packages/FXXK_Racer"
     },
     {
       "id": 9013,
@@ -229,7 +229,7 @@
         "max_kmh": 440,
         "max_mph": 280
       },
-      "model_package": "../../out/car-models/packages/Regera_GT1"
+      "model_package": "../../../out/car-models/packages/Regera_GT1"
     },
     {
       "id": 9014,
@@ -256,7 +256,7 @@
         "max_kmh": 380,
         "max_mph": 240
       },
-      "model_package": "../../out/car-models/packages/AventadorX"
+      "model_package": "../../../out/car-models/packages/AventadorX"
     }
   ]
 }

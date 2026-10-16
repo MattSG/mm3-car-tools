@@ -119,13 +119,13 @@ runtime dependency. The normal
 game-build setup installs the recompilation dependency, not these optional
 conversion tools. Downloaded car sources, exported models, generated packages
 and verification images remain local under ignored folders. Workshop prefers
-the ignored `tools/car-mods/cars.local.json` when it exists; the tracked
+the ignored `tools/car-tools/car-mods/cars.local.json` when it exists; the tracked
 `cars.json` contains donor-compatible defaults without local model paths.
 
 ## Reproduce the nine imported exteriors
 
 Use the same source revision as your game build, following the versioned
-[repository build and game-data setup](../../README.md) instructions first.
+[repository build and game-data setup](https://github.com/MattSG/mm3-recomp#quick-start) instructions first.
 The converter reads the original Viper, Koenigsegg and Lotus models from your
 extracted `game_files/Data`; a compiled executable alone is insufficient.
 Neither the game data nor downloaded car meshes/textures are distributed here.
@@ -196,7 +196,7 @@ foreach ($recipe in $recipes) {
     $source = "out/car-models/source/$($recipe.Source)"
     $preview = "out/car-models/previews/$($recipe.Source)"
     $package = "out/car-models/packages/$($recipe.Alias)"
-    $importArgs = @('tools/car-models/mm2_source.py', 'import', $archive,
+    $importArgs = @('tools/car-tools/car-models/mm2_source.py', 'import', $archive,
         '--model', $recipe.Model, '--paintjob', '0', '--lod', 'H', '--out', $source)
     if ($recipe.Id -eq 9004) {
         $importArgs += @('--overlay', (Join-Path $downloads 'panoz/!!GTR-1_Paintjobs.ar'))
@@ -205,13 +205,13 @@ foreach ($recipe in $recipes) {
     if ($LASTEXITCODE -ne 0) { throw "Import failed: $($recipe.Alias)" }
     Get-ChildItem -LiteralPath (Split-Path -Parent $archive) -Filter '*readme*.txt' -File |
         Copy-Item -Destination $source
-    python tools/car-models/preview.py "$source/model.json" --out $preview `
+    python tools/car-tools/car-models/preview.py "$source/model.json" --out $preview `
         --name $recipe.Alias --include '(?:BODY|BREAK\d+|FNDR[01]|WHL[0-3])_H' `
         --icons --icon-prefix Car
     if ($LASTEXITCODE -ne 0) { throw "Preview failed: $($recipe.Alias)" }
     Copy-Item -LiteralPath (Join-Path $preview 'Car_Menu.png') -Destination (Join-Path $preview 'Menu.png')
     Copy-Item -LiteralPath (Join-Path $preview 'Car_Small.png') -Destination (Join-Path $preview 'Small.png')
-    $buildArgs = @('tools/car-models/build_package.py', "$source/model.json", $package,
+    $buildArgs = @('tools/car-tools/car-models/build_package.py', "$source/model.json", $package,
         '--car-id', $recipe.Id, '--icons', $preview, '--max-texture-size', '1024')
     if ($recipe.Id -eq 9004) { $buildArgs += @('--y-offset', '-0.36') }
     if ($recipe.Id -eq 9006) { $buildArgs += '--average-minified-repeats' }
@@ -227,14 +227,14 @@ and speedometer ranges; only the nine `model_package` selections differ.
 Close the game, preview the installation, then apply this explicit preset:
 
 ```powershell
-python tools/car-mods/prepare.py --config tools/car-mods/cars.imported.json
-python tools/car-mods/prepare.py --config tools/car-mods/cars.imported.json --apply
-tools\car-mods\editor.cmd --config tools/car-mods/cars.imported.json --car-id 9004 --tab model
+python tools/car-tools/car-mods/prepare.py --config tools/car-tools/car-mods/cars.imported.json
+python tools/car-tools/car-mods/prepare.py --config tools/car-tools/car-mods/cars.imported.json --apply
+tools\car-tools\car-mods\editor.cmd --config tools/car-tools/car-mods/cars.imported.json --car-id 9004 --tab model
 ```
 
 The explicit `--config` avoids an existing `cars.local.json` silently selecting
 a different setup. To use the same nine-car tuning with donor visuals instead,
-apply `tools/car-mods/cars.json` explicitly. For personal edits without modifying
+apply `tools/car-tools/car-mods/cars.json` explicitly. For personal edits without modifying
 the tracked imported preset, copy it to `cars.local.json` and then select that
 file explicitly. Rebuild and reapply both near/far models to receive shadow
 writer updates; recompiling the game does not rewrite prepared packages.
@@ -259,7 +259,7 @@ For the Panoz, the internal model basename is `pgtr1`:
 
 ```powershell
 $panozArchive = 'C:\path\to\pgtr1.ar'
-python tools/car-models/mm2_source.py import $panozArchive `
+python tools/car-tools/car-models/mm2_source.py import $panozArchive `
     --model pgtr1 --paintjob 0 --lod H `
     --out out/car-models/source/panoz
 ```
@@ -278,9 +278,9 @@ source directory too, so the package builder can retain it.
 For archive inspection, these commands write separate reports/resources:
 
 ```powershell
-python tools/car-models/mm2_source.py inventory 'C:\path\to\unpacked-cars' `
+python tools/car-tools/car-models/mm2_source.py inventory 'C:\path\to\unpacked-cars' `
     --out out/car-models/source-inventory.json
-python tools/car-models/mm2_source.py extract $panozArchive `
+python tools/car-tools/car-models/mm2_source.py extract $panozArchive `
     --out out/car-models/reference/panoz
 ```
 
@@ -289,7 +289,7 @@ python tools/car-models/mm2_source.py extract $panozArchive `
 Render the actual textured body and wheels before modifying MM3:
 
 ```powershell
-python tools/car-models/preview.py out/car-models/source/panoz/model.json `
+python tools/car-tools/car-models/preview.py out/car-models/source/panoz/model.json `
     --out out/car-models/previews/panoz --name 'Panoz GTR-1' `
     --icons --icon-prefix Panoz
 Copy-Item out/car-models/previews/panoz/Panoz_Menu.png out/car-models/previews/panoz/Menu.png
@@ -330,7 +330,7 @@ names expected by the package builder, as above.
 ## 3. Build a prepared MM3 package
 
 ```powershell
-python tools/car-models/build_package.py `
+python tools/car-tools/car-models/build_package.py `
     out/car-models/source/panoz/model.json out/car-models/packages/Panoz `
     --car-id 9004 --y-offset -0.36 --icons out/car-models/previews/panoz
 ```
@@ -384,9 +384,9 @@ To restore reflections in already prepared packages while preserving their
 visible geometry, stencil shadows, textures and lamp positions:
 
 ```powershell
-python tools/car-models/repair_reflections.py out/car-models/packages `
+python tools/car-tools/car-models/repair_reflections.py out/car-models/packages `
     --backup out/car-models/reflection-fix-backups/my-new-backup
-python tools/car-mods/prepare.py --config tools/car-mods/cars.imported.json --apply
+python tools/car-tools/car-mods/prepare.py --config tools/car-tools/car-mods/cars.imported.json --apply
 ```
 
 Close the game before applying. The repair changes only packed vertex shading
@@ -417,7 +417,7 @@ surplus Lotus donor effects disabled while retaining their native handles.
 To update existing packages without regenerating their geometry or textures:
 
 ```powershell
-python tools/car-models/repair_lights.py out/car-models/packages `
+python tools/car-tools/car-models/repair_lights.py out/car-models/packages `
     --backup out/car-models/light-fix-backups/my-new-backup
 ```
 
@@ -434,10 +434,10 @@ previews also used nearest texture sampling and could show noisy carbon or tire
 patterns and overlapping glass seams. Regenerate only the menu artwork with:
 
 ```powershell
-python tools/car-models/repair_menu.py out/car-models/packages `
+python tools/car-tools/car-models/repair_menu.py out/car-models/packages `
     --backup out/car-models/menu-fix-backups/my-new-backup
-tools\venv\Scripts\python.exe tools/car-mods/prepare.py `
-    --config tools/car-mods/cars.imported.json --apply
+tools\venv\Scripts\python.exe tools/car-tools/car-mods/prepare.py `
+    --config tools/car-tools/car-mods/cars.imported.json --apply
 ```
 
 Use the Python interpreter with NumPy and Pillow installed for the repair.
@@ -471,7 +471,7 @@ package builder accepts `Background.png`, `Car_Background.png` or
 Close MM3, then open Workshop directly on the Panoz Model tab:
 
 ```powershell
-tools\car-mods\editor.cmd --config tools/car-mods/cars.imported.json --car-id 9004 --tab model
+tools\car-tools\car-mods\editor.cmd --config tools/car-tools/car-mods/cars.imported.json --car-id 9004 --tab model
 ```
 
 Choose the prepared `out/car-models/packages/Panoz` folder, which contains
@@ -512,15 +512,15 @@ from the imported exterior's source model name.
 For example, prepare the Senna's already exported neutral source:
 
 ```powershell
-python tools/car-models/preview.py out/car-models/source/senna/model.json `
+python tools/car-tools/car-models/preview.py out/car-models/source/senna/model.json `
     --out out/car-models/previews/senna --name 'McLaren Senna' `
     --include '(?:BODY|BREAK.*|FNDR.*|WHL[0-3])_H' --icons --icon-prefix Senna
 Copy-Item out/car-models/previews/senna/Senna_Menu.png out/car-models/previews/senna/Menu.png
 Copy-Item out/car-models/previews/senna/Senna_Small.png out/car-models/previews/senna/Small.png
-python tools/car-models/build_package.py `
+python tools/car-tools/car-models/build_package.py `
     out/car-models/source/senna/model.json out/car-models/packages/Senna_Road `
     --car-id 9010 --icons out/car-models/previews/senna
-tools\car-mods\editor.cmd --config tools/car-mods/cars.imported.json --car-id 9010 --tab model
+tools\car-tools\car-mods\editor.cmd --config tools/car-tools/car-mods/cars.imported.json --car-id 9010 --tab model
 ```
 
 Select `out/car-models/packages/Senna_Road` in the Model tab. The other cars
@@ -544,7 +544,7 @@ unchanged. The affected faces are recorded in `conversion-report.json`.
 Keep the flag off for the other imports.
 
 ```powershell
-python tools/car-models/build_package.py `
+python tools/car-tools/car-models/build_package.py `
     out/car-models/source/ferrari-f2007/model.json out/car-models/packages/Form1 `
     --car-id 9006 --average-minified-repeats `
     --icons out/car-models/previews/ferrari-f2007
