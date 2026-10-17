@@ -46,11 +46,15 @@ remain available. Reapplying the pack does not reset saved progress.
 
 ## Visual editor
 
-Double-click [editor.cmd](editor.cmd), or run it from the repository root:
+Windows: double-click [editor.cmd](editor.cmd), or run it from the repository root:
 
 ```powershell
 tools\car-tools\car-mods\editor.cmd
 ```
+
+Linux and macOS: run `sh tools/car-tools/car-mods/editor.sh` (or
+`python3 tools/car-tools/car-mods/launch_editor.py`) from the repository root.
+Both use the build venv when present and otherwise the system Python with Tkinter.
 
 To open a specific car and tab directly, for example Panoz's model package:
 
@@ -273,9 +277,12 @@ model packages and pristine archive backups remain available.
 To inspect a running native instance without changing game memory:
 
 ```powershell
-tools\bin\powershell\pwsh.exe -NoProfile -File tools\car-tools\car-mods\verify.ps1 `
-    -ProcessId <pid> -Log <stderr.log> -ExpectedManifest tools\car-tools\car-mods\cars.json
+python tools\car-tools\car-mods\verify.py `
+    --process-id <pid> --log <stderr.log> --expected-manifest tools\car-tools\car-mods\cars.json
 ```
+
+On Linux, `python3 tools/car-tools/car-mods/verify.py ...` reads `/proc/<pid>/mem`
+(permission to read the game's memory is required). macOS is not supported.
 
 The verifier reports the actual loaded catalog IDs, names and ratings, and
 checks the expected extra entries. It also reports the current player's
